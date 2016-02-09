@@ -69,7 +69,6 @@ void Draw()
 		Interpolate(leftSide[y], rightSide[y], imageRow);
 		for(int x = 0; x < SCREEN_WIDTH; ++x)
 		{
-			vec3 color(0.0, 1.0, 0.0);
 			PutPixelSDL(screen, x, y, imageRow[x]);
 		}
 	}
