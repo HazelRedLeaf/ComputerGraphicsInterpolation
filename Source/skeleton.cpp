@@ -74,5 +74,5 @@ void Draw()
 void Interpolate(float a, float b, vector<float>& result)
 {
 	for( unsigned int i=0; i < result.size(); i++)
-		result[i] = a + i;
+		result[i] = a + i * (b - a) / (result.size() - 1);
 }
