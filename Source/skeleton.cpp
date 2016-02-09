@@ -19,7 +19,7 @@ int t;
 /* FUNCTIONS                                                                   */
 void Update();
 void Draw();
-void Interpolate(float a, float b, vector<float>& result);
+void Interpolate(vec3 a, vec3 b, vector<vec3>& result);
 
 int main(int argc, char* argv[])
 {
@@ -34,10 +34,17 @@ int main(int argc, char* argv[])
 
 	SDL_SaveBMP(screen, "screenshot.bmp");
 
-	vector<float> result(10);
-	Interpolate(5, 14, result);
+	vector<vec3> result(4);
+	vec3 a(1, 4, 9.2);
+	vec3 b(4, 1, 9.8);
+	Interpolate(a, b, result);
 	for( unsigned int i = 0; i < result.size(); ++i)
-		cout << result[i] << " ";
+	{
+		cout << "("
+			 << result[i].x << ", "
+			 << result[i].y << ", "
+			 << result[i].z << ") ";
+	}
 	cout << endl;
 	return 0;
 }
@@ -71,8 +78,19 @@ void Draw()
 	SDL_UpdateRect(screen, 0, 0, 0, 0);
 }
 
+void Interpolate(vec3 a, vec3 b, vector<vec3>& result)
+{
+	for( unsigned int i=0; i < result.size(); i++)
+	{
+		result[i].x = a.x + i * (b.x - a.x) / (result.size() - 1);
+		result[i].y = a.y + i * (b.y - a.y) / (result.size() - 1);
+		result[i].z = a.z + i * (b.z - a.z) / (result.size() - 1);
+	}
+}
+
+/* Simple case
 void Interpolate(float a, float b, vector<float>& result)
 {
 	for( unsigned int i=0; i < result.size(); i++)
 		result[i] = a + i * (b - a) / (result.size() - 1);
-}
+} */
